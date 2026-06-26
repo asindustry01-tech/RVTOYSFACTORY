@@ -1,0 +1,14 @@
+const express = require('express');
+const router = express.Router();
+const { getCatalogs, getCatalogById, createCatalog, updateCatalog, deleteCatalog, deleteCatalogImage, getFeatured } = require('../controllers/catalogController');
+const { protect } = require('../middleware/auth');
+const { isAdmin } = require('../middleware/isAdmin');
+const upload = require('../middleware/upload');
+router.get('/featured', protect, getFeatured);
+router.get('/', protect, getCatalogs);
+router.get('/:id', protect, getCatalogById);
+router.post('/', protect, isAdmin, upload.array('images', 10), createCatalog);
+router.put('/:id', protect, isAdmin, upload.array('images', 10), updateCatalog);
+router.delete('/:id', protect, isAdmin, deleteCatalog);
+router.delete('/:id/image/:publicId', protect, isAdmin, deleteCatalogImage);
+module.exports = router;

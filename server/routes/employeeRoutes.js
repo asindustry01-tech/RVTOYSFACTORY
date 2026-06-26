@@ -1,0 +1,10 @@
+const express = require('express');
+const router = express.Router();
+const { getEmployees, createEmployee, toggleEmployeeStatus, resetEmployeePassword } = require('../controllers/employeeController');
+const { protect } = require('../middleware/auth');
+const { isAdmin } = require('../middleware/isAdmin');
+router.get('/', protect, isAdmin, getEmployees);
+router.post('/', protect, isAdmin, createEmployee);
+router.patch('/:id/toggle', protect, isAdmin, toggleEmployeeStatus);
+router.put('/:id/reset-password', protect, isAdmin, resetEmployeePassword);
+module.exports = router;

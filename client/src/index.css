@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --rv-navy: #0A0E1A;
+  --rv-deep-blue: #0D1B3E;
+  --rv-blue: #1A3A6B;
+  --rv-cyan: #00B4D8;
+  --rv-cyan-light: #90E0EF;
+  --rv-white: #F0F4FF;
+  --rv-gray: #8892A4;
+  --rv-border: #1E2D50;
+  --rv-gold: #F59E0B;
+}
+
+body {
+  background-color: var(--rv-navy);
+  color: var(--rv-white);
+  font-family: 'Inter', sans-serif;
+}
+
+.font-display { font-family: 'Orbitron', sans-serif; }
+.font-mono-custom { font-family: 'DM Mono', monospace; }
+
+.glow-cyan {
+  box-shadow: 0 0 20px rgba(0, 180, 216, 0.3);
+}
+.glow-cyan:hover {
+  box-shadow: 0 0 30px rgba(0, 180, 216, 0.5);
+}
+
+.glass-card {
+  background: rgba(13, 27, 62, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--rv-border);
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--rv-navy); }
+::-webkit-scrollbar-thumb {
+  background: var(--rv-blue);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--rv-cyan); }
