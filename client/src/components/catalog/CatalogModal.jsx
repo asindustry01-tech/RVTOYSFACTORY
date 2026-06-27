@@ -78,19 +78,19 @@ export default function CatalogModal({ product, onClose }) {
                   </div>
                 )}
 
-                {/* ✅ Arrow Buttons */}
+                {/* ✅ Arrow Buttons — Always Visible */}
                 {product.images?.length > 1 && (
                   <>
                     <button
                       onClick={prevImage}
-                      className="absolute left-3 top-1/2 -translate-y-1/2 z-10 bg-rv-navy/80 hover:bg-rv-navy text-rv-cyan p-2 rounded-full transition-all opacity-0 group-hover:opacity-100"
+                      className="absolute left-3 top-1/2 -translate-y-1/2 z-10 bg-rv-navy/80 hover:bg-rv-navy text-rv-cyan p-2 rounded-full transition-all"
                       title="Previous (← arrow key)"
                     >
                       <ChevronLeft size={20} />
                     </button>
                     <button
                       onClick={nextImage}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 z-10 bg-rv-navy/80 hover:bg-rv-navy text-rv-cyan p-2 rounded-full transition-all opacity-0 group-hover:opacity-100"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 z-10 bg-rv-navy/80 hover:bg-rv-navy text-rv-cyan p-2 rounded-full transition-all"
                       title="Next (→ arrow key)"
                     >
                       <ChevronRight size={20} />
