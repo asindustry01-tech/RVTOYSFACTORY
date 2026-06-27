@@ -1,11 +1,42 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, IndianRupee, Package, Clock, Layers } from 'lucide-react';
+import { X, IndianRupee, Package, Clock, Layers, ChevronLeft, ChevronRight } from 'lucide-react';
 
 export default function CatalogModal({ product, onClose }) {
   const [activeImg, setActiveImg] = useState(0);
 
   if (!product) return null;
+
+  // ✅ Keyboard navigation
+  useEffect(() => {
+    const handleKeyPress = (e) => {
+      if (!product.images?.length) return;
+
+      if (e.key === 'ArrowLeft') {
+        setActiveImg((prev) => (prev - 1 + product.images.length) % product.images.length);
+      } else if (e.key === 'ArrowRight') {
+        setActiveImg((prev) => (prev + 1) % product.images.length);
+      } else if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [product.images, onClose]);
+
+  // ✅ Arrow button handlers
+  const nextImage = () => {
+    if (product.images?.length) {
+      setActiveImg((prev) => (prev + 1) % product.images.length);
+    }
+  };
+
+  const prevImage = () => {
+    if (product.images?.length) {
+      setActiveImg((prev) => (prev - 1 + product.images.length) % product.images.length);
+    }
+  };
 
   return (
     <AnimatePresence>
@@ -34,7 +65,7 @@ export default function CatalogModal({ product, onClose }) {
                 <X size={16} />
               </button>
 
-              <div className="aspect-square rounded-xl overflow-hidden bg-rv-navy mb-3">
+              <div className="aspect-square rounded-xl overflow-hidden bg-rv-navy mb-3 relative group">
                 {product.images?.[activeImg] ? (
                   <img
                     src={product.images[activeImg].url}
@@ -46,8 +77,36 @@ export default function CatalogModal({ product, onClose }) {
                     <Package size={64} className="text-rv-border" />
                   </div>
                 )}
+
+                {/* ✅ Arrow Buttons */}
+                {product.images?.length > 1 && (
+                  <>
+                    <button
+                      onClick={prevImage}
+                      className="absolute left-3 top-1/2 -translate-y-1/2 z-10 bg-rv-navy/80 hover:bg-rv-navy text-rv-cyan p-2 rounded-full transition-all opacity-0 group-hover:opacity-100"
+                      title="Previous (← arrow key)"
+                    >
+                      <ChevronLeft size={20} />
+                    </button>
+                    <button
+                      onClick={nextImage}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 z-10 bg-rv-navy/80 hover:bg-rv-navy text-rv-cyan p-2 rounded-full transition-all opacity-0 group-hover:opacity-100"
+                      title="Next (→ arrow key)"
+                    >
+                      <ChevronRight size={20} />
+                    </button>
+                  </>
+                )}
+
+                {/* Image counter */}
+                {product.images?.length > 1 && (
+                  <div className="absolute bottom-3 right-3 bg-rv-navy/80 text-rv-gray text-xs px-2 py-1 rounded-full font-mono">
+                    {activeImg + 1}/{product.images.length}
+                  </div>
+                )}
               </div>
 
+              {/* Thumbnail Gallery */}
               {product.images?.length > 1 && (
                 <div className="flex gap-2 overflow-x-auto pb-1">
                   {product.images.map((img, i) => (
@@ -57,6 +116,7 @@ export default function CatalogModal({ product, onClose }) {
                       className={`flex-shrink-0 w-14 h-14 rounded-lg overflow-hidden border-2 transition-all ${
                         activeImg === i ? 'border-rv-cyan' : 'border-rv-border'
                       }`}
+                      title={`Image ${i + 1}`}
                     >
                       <img src={img.url} alt="" className="w-full h-full object-cover" />
                     </button>
@@ -153,6 +213,15 @@ export default function CatalogModal({ product, onClose }) {
                       </div>
                     ))}
                   </div>
+                </div>
+              )}
+
+              {/* Keyboard shortcuts info */}
+              {product.images?.length > 1 && (
+                <div className="mt-4 pt-3 border-t border-rv-border">
+                  <p className="text-rv-gray text-xs text-center">
+                    Use ← → arrow keys to navigate images | ESC to close
+                  </p>
                 </div>
               )}
             </div>
