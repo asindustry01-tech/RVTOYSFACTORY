@@ -6,8 +6,9 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import LoginPage from './pages/LoginPage';
 import CatalogPage from './pages/CatalogPage';
 import AdminDashboard from './pages/AdminDashboard';
-import AddCategoryPage from './pages/AddCategoryPage';   // ✅ ADD THIS
+import AddCategoryPage from './pages/AddCategoryPage';
 import AddCatalogPage from './pages/AddCatalogPage';
+import AdminCatalogPage from './pages/AdminCatalogPage';
 import ManageEmployeesPage from './pages/ManageEmployeesPage';
 import NotFoundPage from './pages/NotFoundPage';
 
@@ -48,9 +49,11 @@ export default function App() {
             <Route path="/admin" element={
               <ProtectedRoute adminOnly><AdminDashboard /></ProtectedRoute>
             } />
-            {/* ✅ ADD CATEGORY ROUTE */}
             <Route path="/admin/category/add" element={
               <ProtectedRoute adminOnly><AddCategoryPage /></ProtectedRoute>
+            } />
+            <Route path="/admin/catalog" element={
+              <ProtectedRoute adminOnly><AdminCatalogPage /></ProtectedRoute>
             } />
             <Route path="/admin/catalog/add" element={
               <ProtectedRoute adminOnly><AddCatalogPage /></ProtectedRoute>

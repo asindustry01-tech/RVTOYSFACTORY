@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
-import { Package, Users, Plus, Eye, LayoutDashboard, Tag } from 'lucide-react';
+import { Package, Users, Plus, Eye, LayoutDashboard, Tag, Edit2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Header from '../components/layout/Header';
 import api from '../services/api';
@@ -44,10 +44,10 @@ export default function AdminDashboard() {
 
   const quickActions = [
     {
-      icon: Tag,                              // ✅ Tag icon for category
+      icon: Tag,
       label: 'Add Category',
       desc: 'Create product category',
-      action: () => navigate('/admin/category/add'),  // ✅ Correct route
+      action: () => navigate('/admin/category/add'),
       border: 'hover:border-purple-400/50',
       iconColor: 'text-purple-400',
     },
@@ -58,6 +58,14 @@ export default function AdminDashboard() {
       action: () => navigate('/admin/catalog/add'),
       border: 'hover:border-rv-cyan/50',
       iconColor: 'text-rv-cyan',
+    },
+    {
+      icon: Edit2,
+      label: 'Manage Products',
+      desc: 'Edit or delete products',
+      action: () => navigate('/admin/catalog'),
+      border: 'hover:border-orange-400/50',
+      iconColor: 'text-orange-400',
     },
     {
       icon: Users,
@@ -107,9 +115,9 @@ export default function AdminDashboard() {
             ))}
           </div>
 
-          {/* Quick Actions — 4 columns */}
+          {/* Quick Actions — 5 columns */}
           <h3 className="text-rv-white font-semibold mb-4">Quick Actions</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
             {quickActions.map((action, i) => (
               <motion.button
                 key={i}
